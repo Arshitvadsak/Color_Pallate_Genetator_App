@@ -6,6 +6,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'screens/collaction.dart';
 import 'screens/image_color.dart';
 import 'screens/setting.dart';
+import 'package:get/get.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,19 +25,19 @@ class _MyAppState extends State<MyApp> {
   final List<Widget> _pages = [
     const Image_Colors(),
     ColorGenerator(),
-     //SecondPage(
-     //  colors: [],
-     // colors1: [],
-     // colors2: [],
-     // ),
+    //SecondPage(
+    //  colors: [],
+    // colors1: [],
+    // colors2: [],
+    // ),
     UserInformation(),
-    const SettingPage(),
+    const SettingsPage(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return EyeDrop(
-      child: MaterialApp(
+      child: GetMaterialApp(
         // routes: {
         //   'Collection': (context) => SecondPage(
         //         colors: [],
@@ -45,14 +46,15 @@ class _MyAppState extends State<MyApp> {
         //       ),
         // },
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.blueGrey,
-        ),
+        theme: ThemeData(useMaterial3: true),
+        darkTheme: ThemeData.dark(useMaterial3: true),
         home: Scaffold(
           body: _pages[_selectedIndex],
           bottomNavigationBar: CurvedNavigationBar(
             animationDuration: const Duration(milliseconds: 400),
-            backgroundColor: Colors.grey.shade200,
+            backgroundColor:(Get.isDarkMode) ? Colors.black : Colors.white ,
+           
+            color: (Get.isDarkMode) ? Colors.black : Colors.white ,
             items: const [
               Icon(Icons.home, size: 30),
               Icon(Icons.auto_awesome, size: 30),

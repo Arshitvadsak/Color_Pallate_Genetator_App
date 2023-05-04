@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:random_color/random_color.dart';
 import 'collaction.dart';
 import 'firebase/firebasehelper.dart';
@@ -38,11 +39,18 @@ class _ColorGeneratorState extends State<ColorGenerator> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Color Palette Generator'),
+        title: Text('Magic generator',
+            style: TextStyle(
+              color: (Get.isDarkMode) ? Colors.white : Colors.black,
+              fontSize: 23,
+              fontWeight: FontWeight.w500,
+            )),
+        backgroundColor: Colors.transparent,
+        centerTitle: true,
       ),
       body: GridView.builder(
         padding: const EdgeInsets.all(16),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 1, crossAxisSpacing: 2, childAspectRatio: 5 / 1
             // mainAxisSpacing: 2,
             ),
@@ -79,23 +87,23 @@ class _ColorGeneratorState extends State<ColorGenerator> {
           FloatingActionButton(
             onPressed: () async {
               await saveColors(_colors);
-            //  Navigator.push(
-            //    context,
-            //    MaterialPageRoute(
-            //      builder: (context) => 
-            //       SecondPage(
-            //         colors: _colors,
-            //         //colors2: [],
-            //         //colors1: [],
-            //       ),
-            //     ),
-            //  );
+              //  Navigator.push(
+              //    context,
+              //    MaterialPageRoute(
+              //      builder: (context) =>
+              //       SecondPage(
+              //         colors: _colors,
+              //         //colors2: [],
+              //         //colors1: [],
+              //       ),
+              //     ),
+              //  );
             },
             child: Icon(Icons.save),
           ),
         ],
       ),
-      backgroundColor: Colors.grey.shade200,
+      backgroundColor: (Get.isDarkMode) ? Colors.black : Colors.white,
     );
   }
 }

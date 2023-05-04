@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:cyclop/cyclop.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-
 import 'collaction.dart';
 import 'firebase/firebasehelper.dart';
 
@@ -20,49 +20,17 @@ class Image_ColorsState extends State<Image_Colors> {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final bodyTextColor =
-        ThemeData.estimateBrightnessForColor(backgroundColor) == Brightness.dark
-            ? Colors.white70
-            : Colors.black87;
-    final appbarTextColor =
-        ThemeData.estimateBrightnessForColor(appbarColor) == Brightness.dark
-            ? Colors.white70
-            : Colors.black87;
-
     return Scaffold(
-      backgroundColor: Colors.grey.shade200,
+      backgroundColor: (Get.isDarkMode) ? Colors.black : Colors.white,
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
-          'Color Pallate',
-          style: textTheme.titleLarge?.copyWith(color: appbarTextColor),
-        ),
-        backgroundColor: appbarColor,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 12),
-            child: Center(
-              child: ColorButton(
-                darkMode: true,
-                color: appbarColor,
-                boxShape: BoxShape.rectangle,
-                swatches: swatches,
-                size: 32,
-                config: const ColorPickerConfig(
-                  enableOpacity: false,
-                  enableLibrary: false,
-                ),
-                onColorChanged: (value) => setState(
-                  () => appbarColor = value,
-                ),
-                onSwatchesChanged: (newSwatches) => setState(
-                  () => swatches = newSwatches,
-                ),
-              ),
-            ),
-          )
-        ],
+        title:  Text('Color Picker',
+            style: TextStyle(
+              color: (Get.isDarkMode) ? Colors.white : Colors.black,
+              fontSize: 23,
+              fontWeight: FontWeight.w500,
+            )),
+        backgroundColor: Colors.transparent,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -98,12 +66,11 @@ class Image_ColorsState extends State<Image_Colors> {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: const [
-                                    Icon(
-                                      Icons.photo,
-                                      size: 50,
-                                    ),
+                                    Icon(Icons.photo,
+                                        size: 50, color: Colors.black),
                                     Text(
                                       "Tap to select Image",
+                                      style: TextStyle(color: Colors.black),
                                     ),
                                   ],
                                 ),
@@ -150,6 +117,8 @@ class Image_ColorsState extends State<Image_Colors> {
                     children: [
                       EyedropperButton(
                         icon: Icons.colorize,
+                        iconColor:
+                            (Get.isDarkMode) ? Colors.white : Colors.black,
                         onColor: _handleColorPicked,
                       ),
                       for (final color in _colorPalette)
@@ -175,40 +144,6 @@ class Image_ColorsState extends State<Image_Colors> {
                         ),
                     ],
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      EyedropperButton(
-                        icon: Icons.colorize,
-                        onColor: _handleColorPicked1,
-                      ),
-                      for (final color in _colorPalette1)
-                        GestureDetector(
-                          onTap: () {
-                            setState(
-                              () {
-                                _selectedColor1 = color;
-                              },
-                            );
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(5),
-                            child: Container(
-                              width: 45,
-                              height: 45,
-                              decoration: BoxDecoration(
-                                color: color,
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                            ),
-                          ),
-                        ),
-                    ],
-                  ),
-                  Text(
-                    "$_colorPalette",
-                  ),
-                  Text("$_colorPalette1")
                 ],
               ),
             ),
@@ -216,18 +151,17 @@ class Image_ColorsState extends State<Image_Colors> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: ()async {
+        onPressed: () async {
           await saveColors(_colorPalette);
           // Navigator.push(
           //   context,
-            // MaterialPageRoute(
-            //   builder: (context) => SecondPage(
-            //     colors: _colorPalette,
-            //     colors1: _colorPalette1, 
-            //     colors2: [],
-            //   ),
-            // ),
-        //  );
+          //   MaterialPageRoute(
+          //     builder: (context) => SecondPage(
+          //       colors: _colorPalette,
+          //       // colors2: [],
+          //     ),
+          //   ),
+          // );
         },
         child: Icon(Icons.save),
       ),
@@ -236,23 +170,12 @@ class Image_ColorsState extends State<Image_Colors> {
 
   final List<Color> _colorPalette = [];
   Color? _selectedColor;
-  final List<Color> _colorPalette1 = [];
-  Color? _selectedColor1;
 
   void _handleColorPicked(Color color) {
     if (_colorPalette.length < 5) {
       setState(() {
         _selectedColor = color;
         _colorPalette.add(color);
-      });
-    }
-  }
-
-  void _handleColorPicked1(Color color) {
-    if (_colorPalette1.length < 5) {
-      setState(() {
-        _selectedColor1 = color;
-        _colorPalette1.add(color);
       });
     }
   }
