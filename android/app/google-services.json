@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "387889317494",
+    "project_id": "color-pallate-generator-app",
+    "storage_bucket": "color-pallate-generator-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:387889317494:android:1d42c8d4bc819fe024c157",
+        "android_client_info": {
+          "package_name": "com.example.color_pallate_generator_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "387889317494-hfh57kq56mfld05og9t24198lr359ssu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.color_pallate_generator_app",
+            "certificate_hash": "e4177e7022db31fe6379b5d6a982e3d931157cdc"
+          }
+        },
+        {
+          "client_id": "387889317494-g40b0cqju7u9n2v1bi66tba62jm74i5r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2cBg70TqHJpf3d0nbBahen2h_nbNnoWE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "387889317494-g40b0cqju7u9n2v1bi66tba62jm74i5r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
